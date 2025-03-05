@@ -1,25 +1,27 @@
 import unittest
-import services.User_service as User_service
-import services.User_service2 as User_service2
-import services.User_service3 as User_service3
-import services.User_service4 as User_service4
-import services.Vacation_service as Vacation_service
-import services.Vacation_service1 as Vacation_service1
-import services.Vacation_service2 as Vacation_service2
-import services.Vacation_service3 as Vacation_service3
-import srcs.dal_b.Database as Database
+from services import User_service
+from services import User_service2
+from services import User_service3
+from services import User_service4
+from services import Vacation_service
+from services import Vacation_service1
+from services import Vacation_service2
+from services import Vacation_service3
+from srcs.dal_b.Database import DataBase
 from modules1.User import User
 from modules1.Like import Like
 
 
 class Test1(unittest.TestCase):
     def test_all(self):
-        Database.IS_TEST = True
-        conn = Database.getDataBaseConnection()
+        print("start....")
+        dataBase = DataBase()
+        conn = dataBase.getDataBaseConnection()
         with open('srcs/init_db.sql', 'r', encoding='utf8') as file:
             sql_script = file.read()
-            conn.execute(sql_script)
-        Database.stopDataBaseConnection()
+        conn.execute(sql_script)
+        dataBase.stopDataBaseConnection()
+        print("start services....")
 
         self.test_user_service()
         self.test_user_service2()
@@ -30,16 +32,10 @@ class Test1(unittest.TestCase):
         self.test_user_vacation2()
         self.test_user_vacation3()
 
-        Database.IS_TEST = False
-        conn = Database.getDataBaseConnection()
-        with open('src/init_db.sql', 'r', encoding='utf8') as file:
-            sql_script = file.read()
-            conn.execute(sql_script)
-        Database.stopDataBaseConnection()
-
     def test_user_service(self):
         User_service.userLoginInBackground(
             "yishay", "racmut", "123456", "rachmut@gmail.com")
+
         User_service.userLoginInBackground(
             "yishay", "", "123456", "rachmut@gmail.com")
 
@@ -58,7 +54,9 @@ class Test1(unittest.TestCase):
     def test_user_service4(self):
         like = Like(1, 1)
         User_service4.deleteLikeInBackground(like)
-        user = User()
+        #    def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
+
+        user = User(-1, "", "", "", "", 1)
         User_service4.deleteLikeInBackground(user)
 
     def test_user_vacation(self):
@@ -67,7 +65,8 @@ class Test1(unittest.TestCase):
 
     def test_user_vacation1(self):
         print(Vacation_service1.getAllVacationsInBackground())
-        self.assertEqual(Vacation_service1.getAllVacationsInBackground(), 8)
+        self.assertEqual(
+            Vacation_service1.getAllVacationsInBackground(), 8)  # בשביל שגיאה
 
     def test_user_vacation2(self):
         Vacation_service2.insertVacationsInBackground(

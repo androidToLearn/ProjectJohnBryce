@@ -1,6 +1,6 @@
 import asyncio
-import srcs.dal_b.User_dao as User_dao
-import modules1.User as User
+from srcs.dal_b.User_dao import User_dao
+from modules1.User import User
 
 #    def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
 

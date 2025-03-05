@@ -1,5 +1,5 @@
 import asyncio
-import srcs.dal_b.Like_dao as Like_dao
+from srcs.dal_b.Like_dao import Like_dao
 
 #    def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
 

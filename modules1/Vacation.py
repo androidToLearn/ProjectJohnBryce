@@ -8,12 +8,3 @@ class Vacation:
         self.date_end = date_end
         self.price = price
         self.image_name = image_name
-
-    def __init__(self):
-        self.id = -1
-        self.id_country = -1
-        self.description = ''
-        self.date_start = ''
-        self.date_end = ''
-        self.price = -1
-        self.image_name = ''

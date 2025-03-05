@@ -10,11 +10,3 @@ class User:
         self.password = password
         self.email = email
         self.id_role = id_role
-
-    def __init__(self):
-        self.id = -1
-        self.name = ""
-        self.second_name = ""
-        self.password = ""
-        self.email = ""
-        self.id_role = -1

@@ -1,4 +1,9 @@
 
+CREATE TABLE IF NOT EXISTS likes (
+    id_user INT NOT NULL,
+    id_vacation INT NOT NULL
+);
+
 
 DROP TABLE IF EXISTS roles;
 

@@ -1,6 +1,6 @@
 import asyncio
-import srcs.dal_b.User_dao as User_dao
-import modules1.User as User
+from srcs.dal_b.User_dao import User_dao
+from modules1.User import User
 
 #    def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
 
@@ -18,11 +18,16 @@ async def inUserLogin(name, second_name, password, email):
     if len(name.strip()) > 0 and len(second_name.strip()) > 0 and len(password.strip()) > 0 and len(email.strip()) > 0:
         if '@gmail.com' in email or '@gov.co.il' in email:
             if len(password) >= 4:
+
+                print("do...")
                 user_dao = User_dao()
+                print("after")
                 users = user_dao.getAll()
+
                 if not isGmailAppear(users, email):
                     user_dao.insertUser(
                         User(-1, name, second_name, password, email, 1))
+                    print("login!")
                 else:
                     raise Exception("failed , gmail appear , try again!")
             else:

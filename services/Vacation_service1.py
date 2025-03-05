@@ -1,5 +1,5 @@
 import asyncio
-import modules1.Vacation as Vacation
+from modules1.Vacation import Vacation
 from srcs.dal_b.Vacation_dao import Vacation_dao
 
 
@@ -13,7 +13,9 @@ async def getAllVacations1():
 
 
 async def getAllVacations():
-    keepVacation = Vacation()
+    #    def __init__(self, id: int, id_country: int, description: str, date_start: str, date_end: str, price: int, image_name: str):
+
+    keepVacation = Vacation(-1, 1, "", "", "", 1, "")
     vacation_dao = Vacation_dao()
     allVacations = vacation_dao.getAll()
     b = True

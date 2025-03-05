@@ -8,13 +8,7 @@ class Country_dao():
     COLUMN_ID = 'id'
 
     def __init__(self):
-        create_table = f"""CREATE TABLE IF NOT EXISTS {Country_dao.NAME_TABLE} (
-        {Country_dao.COLUMN_ID} SERIAL PRIMARY KEY, 
-        {Country_dao.COLUMN_NAME} VARCHAR(225))"""
-        cursor = Database.getDataBaseConnection()
-        # cursor מחליף את SqliteDataBase
-        cursor.execute(create_table)
-        Database.stopDataBaseConnection()
+        print("created")
 
     def insertCountry(self, country):
         cursor = Database.getDataBaseConnection()

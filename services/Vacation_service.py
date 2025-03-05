@@ -1,5 +1,5 @@
 import asyncio
-import srcs.dal_b.Vacation_dao as Vacation_dao
+from srcs.dal_b.Vacation_dao import Vacation_dao
 from srcs.dal_b.Like_dao import Like_dao
 
 

@@ -1,6 +1,6 @@
 import asyncio
-import srcs.dal_b.Vacation_dao as Vacation_dao
-import modules1.Vacation as Vacation
+from srcs.dal_b.Vacation_dao import Vacation_dao
+from modules1.Vacation import Vacation
 
 
 def updateVacationsInBackground(id_country, description, date_start, date_end, price):

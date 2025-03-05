@@ -1,7 +1,7 @@
 import asyncio
-import srcs.dal_b.Like_dao as Like_dao
-import srcs.dal_b.User_dao as User_dao
-import srcs.dal_b.Vacation_dao as Vacation_dao
+from srcs.dal_b.Like_dao import Like_dao
+from srcs.dal_b.User_dao import User_dao
+from srcs.dal_b.Vacation_dao import Vacation_dao
 
 #    def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
 
