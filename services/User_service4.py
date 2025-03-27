@@ -14,5 +14,6 @@ async def deleteLikeBack(like):
 
 
 async def deleteLikeBack1(like):
+    """delete some like"""
     like_dao = Like_dao()
     like_dao.deleteLikeByLike(like)

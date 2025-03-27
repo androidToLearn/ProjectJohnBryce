@@ -15,6 +15,7 @@ async def userRegister(name, second_name, password, email):
 
 
 async def inUserRegister(name, second_name, password, email):
+    """enter with exists user"""
 
     if len(name) > 0 and len(second_name) > 0 and len(password) > 0 and len(email) > 0:
 
@@ -35,6 +36,7 @@ async def inUserRegister(name, second_name, password, email):
 
 
 def isExistsUser(users, name, second_name, password, email):
+    """check if is user exists"""
     for user in users:
         if user.email == email and user.password == password:
             return True

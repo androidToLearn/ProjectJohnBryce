@@ -16,6 +16,7 @@ async def insertLikeBack(like):
 
 
 async def insertLikeBack1(like):
+    """insert new like to some user with some vacation"""
     vacation_dao = Vacation_dao()
     user_dao = User_dao()
     vacations = vacation_dao.getAll()
@@ -29,6 +30,7 @@ async def insertLikeBack1(like):
 
 
 async def isIdAppear(id, objects):
+    """check if id is appear in the objects"""
     for o in objects:
         if o.id == id:
             return True

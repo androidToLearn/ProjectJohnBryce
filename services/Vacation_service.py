@@ -14,6 +14,7 @@ async def deleteVacations1(id_vacation):
 
 
 async def deleteVacations(id_vacation):
+    """delete some vacation"""
     vacation_dao = Vacation_dao()
     vacation_dao.deleteVacationById(id_vacation)
     like_dao = Like_dao()

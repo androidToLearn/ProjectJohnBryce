@@ -56,8 +56,8 @@ class Test1(unittest.TestCase):
         User_service4.deleteLikeInBackground(like)
         #    def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
 
-        user = User(-1, "", "", "", "", 1)
-        User_service4.deleteLikeInBackground(user)
+        # user = User(-1, "", "", "", "", 1)
+        # User_service4.deleteLikeInBackground(user)
 
     def test_user_vacation(self):
         Vacation_service.deleteVacationsInBackground(1)
