@@ -1,4 +1,5 @@
 import psycopg2
+from srcs.config import Config
 
 
 class DataBase:
@@ -8,11 +9,11 @@ class DataBase:
         pass
 
     def getDataBaseConnection(self):
-        self.conn = psycopg2.connect(dbname='postgres',
-                                     user='postgres',
-                                     port='5432',
-                                     host='localhost',
-                                     password="newpassword"
+        self.conn = psycopg2.connect(dbname=Config.DATABASE_DBNAME,
+                                     user=Config.DATABASE_USER,
+                                     port=Config.DATABASE_PORT,
+                                     host=Config.DATABASE_HOST,
+                                     password=Config.DATABASE_PASSWORD
                                      )
         self.cursor = self.conn.cursor()
         return self.cursor
