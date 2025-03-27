@@ -1,5 +1,5 @@
 import psycopg2
-from srcs.config import Config
+from config import Config
 
 
 class DataBase:
