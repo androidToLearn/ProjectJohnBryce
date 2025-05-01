@@ -6,16 +6,7 @@ from srcs.dal_b.Vacation_dao import Vacation_dao
 #    def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
 
 
-def insertLikeInBackground(like):
-    asyncio.run(insertLikeBack(like))
-
-
-async def insertLikeBack(like):
-    asyncio.create_task(
-        insertLikeBack1(like))
-
-
-async def insertLikeBack1(like):
+def insertLikeBack1(like):
     """insert new like to some user with some vacation"""
     vacation_dao = Vacation_dao()
     user_dao = User_dao()
@@ -29,7 +20,7 @@ async def insertLikeBack1(like):
     like_dao.insertLike(like)
 
 
-async def isIdAppear(id, objects):
+def isIdAppear(id, objects):
     """check if id is appear in the objects"""
     for o in objects:
         if o.id == id:

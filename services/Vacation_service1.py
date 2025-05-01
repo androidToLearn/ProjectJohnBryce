@@ -3,16 +3,7 @@ from modules1.Vacation import Vacation
 from srcs.dal_b.Vacation_dao import Vacation_dao
 
 
-def getAllVacationsInBackground():
-    return asyncio.run(getAllVacations1())
-
-
-async def getAllVacations1():
-    task = asyncio.create_task(getAllVacations())
-    return await task
-
-
-async def getAllVacations():
+def getAllVacations():
     #    def __init__(self, id: int, id_country: int, description: str, date_start: str, date_end: str, price: int, image_name: str):
 
     keepVacation = Vacation(-1, 1, "", "", "", 1, "")

@@ -3,17 +3,7 @@ from srcs.dal_b.Vacation_dao import Vacation_dao
 from srcs.dal_b.Like_dao import Like_dao
 
 
-def deleteVacationsInBackground(id_vacation):
-    return asyncio.run(deleteVacations1(id_vacation))
-
-
-async def deleteVacations1(id_vacation):
-    task = asyncio.create_task(deleteVacations(
-        id_vacation))
-    return await task
-
-
-async def deleteVacations(id_vacation):
+def deleteVacations(id_vacation):
     """delete some vacation"""
     vacation_dao = Vacation_dao()
     vacation_dao.deleteVacationById(id_vacation)

@@ -1,5 +1,5 @@
-import Database
-import modules1.Country as Country
+from srcs.dal_b.Database import Database
+from modules1.Country import Country
 
 
 class Country_dao():
@@ -8,20 +8,22 @@ class Country_dao():
     COLUMN_ID = 'id'
 
     def __init__(self):
-        print("created")
+        pass
 
     def insertCountry(self, country):
-        cursor = Database.getDataBaseConnection()
+        dataBase = Database()
+        cursor = dataBase.getDataBaseConnection()
         cursor.execute(
-            f"""INSERT INTO {Country_dao.NAME_TABLE}({Country_dao.COLUMN_NAME}) VALUES (%s) RETURNING {Country_dao.COLUMN_ID}""", (country.name,))
+            f"""INSERT INTO {Country_dao.NAME_TABLE}({Country_dao.COLUMN_NAME}) VALUES (%s) RETURNING {Country_dao.COLUMN_ID}""", (country.name_country,))
         country.id = cursor.fetchone()[0]
-        Database.stopDataBaseConnection()
+        dataBase.stopDataBaseConnection()
 
     def getAll(self):
-        cursor = Database.getDataBaseConnection()
+        dataBase = Database()
+        cursor = dataBase.getDataBaseConnection()
         cursor.execute(f"""SELECT * FROM {Country_dao.NAME_TABLE}""")
         countries = cursor.fetchall()
-        Database.stopDataBaseConnection()
+        dataBase.stopDataBaseConnection()
 
         allCountries = []
         for country in countries:
@@ -30,27 +32,31 @@ class Country_dao():
         return allCountries
 
     def updateById(self, country):
-        cursor = Database.getDataBaseConnection()
+        dataBase = Database()
+        cursor = dataBase.getDataBaseConnection()
         cursor.execute(
-            f"""UPDATE {Country_dao.NAME_TABLE} SET {Country_dao.COLUMN_NAME} = %s WHERE {Country_dao.COLUMN_ID} = %s""", (country.name, country.id))
-        Database.stopDataBaseConnection()
+            f"""UPDATE {Country_dao.NAME_TABLE} SET {Country_dao.COLUMN_NAME} = %s WHERE {Country_dao.COLUMN_ID} = %s""", (country.name_country, country.id))
+        dataBase.stopDataBaseConnection()
 
     def getById(self, id):
-        cursor = Database.getDataBaseConnection()
+        dataBase = Database()
+        cursor = dataBase.getDataBaseConnection()
         cursor.execute(
             f"""SELECT * FROM {Country_dao.NAME_TABLE} WHERE {Country_dao.COLUMN_ID} = %s""", (id, ))
         result = cursor.fetchone()
-        Database.stopDataBaseConnection()
+        dataBase.stopDataBaseConnection()
         return Country(result[0], result[1])
 
     def deleteCountryById(self, id):
-        cursor = Database.getDataBaseConnection()
+        dataBase = Database()
+        cursor = dataBase.getDataBaseConnection()
         cursor.execute(
             f"""DELETE FROM {Country_dao.NAME_TABLE} WHERE {Country_dao.COLUMN_ID} = {id}""")
-        Database.stopDataBaseConnection()
+        dataBase.stopDataBaseConnection()
 
-    def deleteAll():
-        cursor = Database.getDataBaseConnection()
+    def deleteAll(self):
+        dataBase = Database()
+        cursor = dataBase.getDataBaseConnection()
         deleteTable = "DROP TABLE IF EXISTS " + Country_dao.NAME_TABLE
         create_table = f"""CREATE TABLE IF NOT EXISTS {Country_dao.NAME_TABLE} (
         {Country_dao.COLUMN_ID} SERIAL PRIMARY KEY, 
@@ -58,4 +64,4 @@ class Country_dao():
         cursor.execute(deleteTable)
         cursor.execute(create_table)
 
-        Database.stopDataBaseConnection()
+        dataBase.stopDataBaseConnection()

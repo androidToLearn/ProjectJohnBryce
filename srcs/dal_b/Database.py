@@ -2,7 +2,7 @@ import psycopg2
 from config import Config
 
 
-class DataBase:
+class Database:
     def __init__(self):
         self.conn = None
         self.cursor = None
@@ -19,5 +19,6 @@ class DataBase:
         return self.cursor
 
     def stopDataBaseConnection(self):
+        self.conn.commit()
         self.conn.close()
         self.cursor.close()

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>likes page</title>
+    <link rel="stylesheet" href="{{url_for('static' , filename='namec2.css')}}">
+    <style>
+        body {
+            margin: 0px;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="width: 100%; height: 210px; background-color: aqua; display: flex;flex-direction: row;">
+        <a href="{{url_for('profilePage' , id_user = my_user.id)}}" style="text-decoration: none;height: 100%;"
+            class="'o22">
+            <div class="o22">
+                <div
+                    style="width: 100%;height: fit-content;flex-direction: row;align-items: center;justify-content: center;display: flex;padding-top: 20px; padding-bottom: 8px;">
+                    <img src="{{url_for('static' , filename='images/profile.png')}}" style="width: 100px;height: auto;">
+                </div>
+                <p
+                    style="text-decoration: none; color: black; font-size: 30px; text-shadow: 2px 2px 5px black;text-align: center;margin-top: -8px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                    welcome
+                    {{my_user.name}}</p>
+            </div>
+        </a>
+
+        <div class="search" style="display: flex;flex-direction: column; width: fit-content;height: fit-content;">
+            <div style="display: flex;flex-direction: row; width: fit-content;height: fit-content;">
+                <button class="button_search">id</button>
+                <button class="button_search">country</button>
+                <button class="button_search">description</button>
+                <button class="button_search">price</button>
+                <button class="button_search">liked</button>
+                <button class="button_search">month_start</button>
+                <button class="button_search">year_start</button>
+                <button class="button_search">days_vacation</button>
+            </div>
+            <div style="display: flex;flex-direction: row; width: fit-content;height: fit-content;">
+                <input type="text" class="editTextClass" placeholder="vacation id...">
+                <input type="text" class="editTextClass" placeholder="vacation country...">
+                <input type="text" class="editTextClass" placeholder="vacation description...">
+                <input type="text" class="editTextClass" placeholder="vacation maximum price...">
+                <div class="divLike">
+                    <p>get liked</p> <input type="radio" class="cheackboxclass">
+                    <p>get unliked</p> <input type="radio" class="cheackboxclass">
+                    <p>get liked and unliked</p> <input type="radio" class="cheackboxclass">
+                </div>
+                <input type="text" class="editTextClass" placeholder="vacation month_start...">
+                <input type="text" class="editTextClass" placeholder="vacation year_start...">
+                <input type="text" class="editTextClass" placeholder="num days of vacation...">
+                <input type="button" onclick="clickSearchDo()" style="width: 100px;height:fit-content;" value="search">
+            </div>
+            <p id="m" style="color: blue;">loading , wait a minutes...</p>
+        </div>
+
+        {%if my_user.id_role == 0%}
+        <a href="{{url_for('add_country' , vacation_id = -1)}}" class="o2" style="width: fit-content; height: 100%;">
+            <div style="width: fit-content;height: fit-content;">
+                <div
+                    style="width: 100%;height: fit-content;flex-direction: row;align-items: center;justify-content: center;display: flex;">
+                    <img src="{{url_for('static' , filename = 'images/image.png')}}" style="width: 100px;height: auto;">
+                </div>
+                <p
+                    style="font-size: 25px; color: black;margin: 0px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;width: 100%;height: fit-content;text-align: center; text-shadow: 2px 2px 5px gray;">
+                    add vacation</p>
+            </div>
+        </a>
+        {%endif%}
+    </div>
+    <div
+        style="display: flex; flex-direction: row; width: 100%; height: fit-content; background-color: white; margin: 0; padding: 0; box-sizing: border-box;">
+
+        <p
+            style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
+            isCheacked
+        </p>
+        <p
+            style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
+            nameCountry
+        </p>
+        <p
+            style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
+            description
+        </p>
+        <p
+            style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
+            startIn
+        </p>
+        <p
+            style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
+            endIn
+        </p>
+        <p
+            style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
+            price
+        </p>
+        <p
+            style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
+            image
+        </p>
+    </div>
+
+    {%for vacation in vacations%}
+    <div {%if my_user.id_role==0%} onclick="click_update_vacation({{vacation['id']}})" {%endif%}
+        style="border: 2px solid black; height: fit-content; width: 100%; background-color: white; display: flex;flex-direction: row;">
+        <!--בתוך הdiv לעשות boarder וflex row-->
+        {%if myIsLikes[loop.index0]%}
+        <div style="flex-grow: 1;display: flex;justify-content: center;align-items: center;height: fit-content;">
+            <input type="checkbox" style="padding: 5px;width: 100px;height: 100px;;"
+                onclick="clickDone({{vacation['id']}} , {{my_user.id}} , this)" checked>
+        </div>
+        {%else%}
+        <div style="flex-grow: 1;display: flex;justify-content: center;align-items: center;height: fit-content;">
+            <input type="checkbox" style="padding: 5px;width: 100px;height: 100px;"
+                onclick="clickDone({{vacation['id']}} , {{my_user.id}} , this)">
+        </div>
+        {%endif%}
+        <p style="flex-grow: 1;padding: 5px;">{{vacation['country']}}</p>
+        <p style="flex-grow: 1;padding: 5px;">{{vacation['description']}}</p>
+        <p style="flex-grow: 1;padding: 5px;">{{vacation['date_start']}}</p>
+        <p style="flex-grow: 1;padding: 5px;">{{vacation['date_end']}}</p>
+        <p style="flex-grow: 1;padding: 5px;">{{vacation['price']}}$</p>
+        {%if vacation['image_name']|length != 0%}
+        <img src="{{url_for('get_image' , image_name = vacation['image_name'] )}}" alt="vacation image"
+            style="flex-grow: 1;padding: 5px;width: 0px;height: auto;">
+        {%endif%}
+    </div>
+    {%endfor%}
+    {%if my_user.id_role == 0%}
+    <a href="{{url_for('add_country' , vacation_id = -1)}}"
+        style="text-decoration: none; width: fit-content; height: fit-content;">
+        <div class="o">
+            <img src="{{url_for('static' , filename = 'images/image.png')}}" style="width: 200px;height: auto; ">
+            <p
+                style="font-size: 25px; color: black;margin: 0px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                add vacation</p>
+        </div>
+    </a>
+    {%endif%}
+    <script src="{{url_for('static' , filename = 'file.js')}}"></script>
+</body>
+
+</html>

@@ -5,15 +5,7 @@ from modules1.User import User
 #    def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
 
 
-def userLoginInBackground(name, second_name, password, email):
-    asyncio.run(userLogin(name, second_name, password, email))
-
-
-async def userLogin(name, second_name, password, email):
-    asyncio.create_task(inUserLogin(name, second_name, password, email))
-
-
-async def inUserLogin(name, second_name, password, email):
+def isUserLogin(name, second_name, password, email, isAdmin):
     """"login new user"""
     if len(name.strip()) > 0 and len(second_name.strip()) > 0 and len(password.strip()) > 0 and len(email.strip()) > 0:
         if '@gmail.com' in email or '@gov.co.il' in email:
@@ -25,21 +17,27 @@ async def inUserLogin(name, second_name, password, email):
                 users = user_dao.getAll()
 
                 if not isGmailAppear(users, email):
-                    user_dao.insertUser(
-                        User(-1, name, second_name, password, email, 1))
+                    if isAdmin:
+                        id = 0
+                    else:
+                        id = 1
+                    user = User(-1, name, second_name, password, email, id)
+                    user_dao.insertUser(user)
                     print("login!")
+                    return user
                 else:
-                    raise Exception("failed , gmail appear , try again!")
+                    return "failed , gmail appear , try again!"
             else:
-                raise Exception("password must be with less four length")
+                return "password must be with less four length"
         else:
-            raise Exception("email wrong")
+            return "email pattern wrong"
     else:
-        raise Exception("fill all fields")
+        return "fill all fields"
 
 
 def isGmailAppear(users, email):
     for user in users:
+        print(user)
         if user.email == email:
             return True
     return False

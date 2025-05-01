@@ -1,4 +1,4 @@
-from srcs.dal_b.Database import DataBase
+from srcs.dal_b.Database import Database
 from modules1.Vacation import Vacation
 
 
@@ -15,25 +15,26 @@ class Vacation_dao:
     #    def __init__(self, id: int, id_country: int, description: str, date_start: str, date_end: str, price: int, image_name: str):
 
     def __init__(self):
-        print("created")
+        pass
 
     def insertVacation(self, vacation):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute(
-            f"""INSERT INTO {Vacation_dao.TABLE_NAME} ({Vacation_dao.COLUMN_DESCRIPTION, Vacation_dao.COLUMN_DATE_START, Vacation_dao.COLUMN_DATE_END, Vacation_dao.COLUMN_PRICE, Vacation_dao.COLUMN_ID_COUNTRY, Vacation_dao.COLUMN_IMAGE_NAME}) VALUES (%s , %s , %s , %s , %s, %s) RETURNING {Vacation_dao.COLUMN_ID}""", (vacation.description, vacation.date_start, vacation.date_end, vacation.price, vacation.id_country, vacation.image_name))
+            f"""INSERT INTO {Vacation_dao.TABLE_NAME} ({Vacation_dao.COLUMN_DESCRIPTION}, {Vacation_dao.COLUMN_DATE_START}, {Vacation_dao.COLUMN_DATE_END}, {Vacation_dao.COLUMN_PRICE}, {Vacation_dao.COLUMN_ID_COUNTRY}, {Vacation_dao.COLUMN_IMAGE_NAME}) VALUES (%s , %s , %s , %s , %s, %s) RETURNING {Vacation_dao.COLUMN_ID}""", (vacation.description, vacation.date_start, vacation.date_end, vacation.price, vacation.id_country, vacation.image_name))
         vacation.id = cursor.fetchone()[0]
         dataBase.stopDataBaseConnection()
+        print('inserted')
 
     def deleteVacationById(self, id):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute(
             f"""DELETE FROM {Vacation_dao.TABLE_NAME} WHERE {Vacation_dao.COLUMN_ID} = {id}""")
         dataBase.stopDataBaseConnection()
 
     def getAll(self):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute("SELECT * FROM " + Vacation_dao.TABLE_NAME)
         results = cursor.fetchall()
@@ -47,21 +48,21 @@ class Vacation_dao:
         return allVacations
 
     def getVacationById(self, id):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
-        cursor.execute("SELECT * FROM" + Vacation_dao.TABLE_NAME +
-                       "WHERE" + Vacation_dao.COLUMN_ID + "=" + id)
+        cursor.execute("SELECT * FROM " + Vacation_dao.TABLE_NAME +
+                       " WHERE " + Vacation_dao.COLUMN_ID + " = " + id)
         result = cursor.fetchone()
         dataBase.stopDataBaseConnection()
 
         if result == None:
-            return Vacation()
+            return None
         return Vacation(result[0], result[1], result[2], result[3], result[4], result[5], result[6])
 
     #    def __init__(self, id: int, id_country: int, description: str, date_start: str, date_end: str, price: int, image_name: str):
 
     def updateVacationById(self, vacation):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute(f"""UPDATE {Vacation_dao.TABLE_NAME} 
                         SET {Vacation_dao.COLUMN_ID_COUNTRY} = '{vacation.id_country}', 
@@ -73,8 +74,8 @@ class Vacation_dao:
                         WHERE {Vacation_dao.COLUMN_ID} = {vacation.id}""")
         dataBase.stopDataBaseConnection()
 
-    def deleteAll():
-        dataBase = DataBase()
+    def deleteAll(self):
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         deleteTable = "DROP TABLE IF EXISTS " + Vacation_dao.TABLE_NAME
         createTable = f"""CREATE TABLE IF NOT EXISTS {Vacation_dao.TABLE_NAME} ({Vacation_dao.COLUMN_ID} SERIAL PRIMARY KEY,

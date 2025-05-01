@@ -1,0 +1,1 @@
+fetch('/send_search_json', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: '-1', country: '-1', description: '-1', price: '-1', ischeaked: '-1', month_start: '-1', year_start: '-1', days_vacation: '-1' }) }).then(response => { console.log('sended') });

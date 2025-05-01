@@ -1,4 +1,4 @@
-import Database
+from srcs.dal_b.Database import Database
 import modules1.Role as Role
 
 
@@ -8,7 +8,7 @@ class Role_dao:
     TABLE_NAME = "roles"
 
     def __init__(self):
-        print("created")
+        pass
 
     def insertRole(self, role):
         dataBase = Database()
@@ -41,7 +41,7 @@ class Role_dao:
         dataBase.stopDataBaseConnection()
         return Role(result[0], result[1])
 
-    def getAll():
+    def getAll(self):
         dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute("SELECT * FROM " + Role_dao.TABLE_NAME)
@@ -52,7 +52,7 @@ class Role_dao:
             allRoles.append(Role(result[0], result[1]))
         return allRoles
 
-    def deleteAll():
+    def deleteAll(self):
         dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         deleteTable = "DROP TABLE IF EXISTS " + Role_dao.TABLE_NAME

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            font-size: 24px;
+            color: black;
+            padding-left: 20px;
+        }
+
+        body {
+            margin: 0px;
+        }
+
+        a {
+            font-size: 20px;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: block;
+            margin-top: 40px;
+            margin-left: 20px;
+            width: fit-content;
+            height: fit-content;
+        }
+
+        a:hover {
+            background-color: rgba(128, 128, 128, 0.532);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="width: 100%; height: fit-content; background-color: rgba(0, 0, 255, 0.47);padding-bottom: 20px;">
+        <div style="width: fit-content;height: fit-content;display: flex;flex-direction: column;">
+            <img src="{{url_for('static' , filename='images/profile.png')}}"
+                style="width: 100px;height: auto;padding-top: 20px;padding-left: 20px;">
+        </div>
+    </div>
+    <!--only to show data user-->
+    <p>name: {{user.name}}</p>
+    <p>second_name: {{user.second_name}}</p>
+    <p>password: {{user.password}}</p>
+    <p>email: {{user.email}}</p>
+    {%if user.id_role == 0%}
+    <p>isAdmin: admin</p>
+    {%else%}
+    <p>isAdmin: user</p>
+    {%endif%}
+    <a href="{{url_for('index')}}">exit</a>
+</body>
+
+</html>

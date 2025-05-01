@@ -1,4 +1,5 @@
-from srcs.dal_b.Database import DataBase
+from srcs.dal_b.Database import Database
+from modules1.User import User
 
 
 class User_dao:
@@ -11,10 +12,10 @@ class User_dao:
     TABLE_NAME = "users"
 
     def __init__(self):
-        print("created")
+        pass
 
     def insertUser(self, user):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute(f"""INSERT INTO {User_dao.TABLE_NAME} ({User_dao.COLUMN_NAME}, {User_dao.COLUMN_SECOND_NAME}, 
                                                             {User_dao.COLUMN_PASSWORD}, {User_dao.COLUMN_EMAIL}, {User_dao.COLUMN_ID_ROLE}) 
@@ -26,7 +27,7 @@ class User_dao:
 
     def getAll(self):
         print("get all")
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         print("get connection")
         cursor.execute("SELECT * FROM " + User_dao.TABLE_NAME)
@@ -35,7 +36,8 @@ class User_dao:
         print("fetch all")
 
         allUsers = []
-        if cursor.fetchone() is None:
+        if not users:
+            print('no users')
             return allUsers
 
         for user in users:
@@ -45,7 +47,7 @@ class User_dao:
         return allUsers
 
     def deleteUserById(self, id):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute(
             f"""DELETE FROM {User_dao.TABLE_NAME} WHERE {User_dao.COLUMN_ID} = {id}""")
@@ -54,7 +56,7 @@ class User_dao:
     # def __init__(self, id: int, name: str, second_name: str, password: str, email: str, id_role: int):
 
     def getUserById(self, id):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute(
             f"""SELECT * FROM {User_dao.TABLE_NAME} WHERE {User_dao.COLUMN_ID} = {id}""")
@@ -63,7 +65,7 @@ class User_dao:
         return User(id, result[1], result[2], result[3], result[4], result[5])
 
     def updateUserById(self, user):
-        dataBase = DataBase()
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         cursor.execute(f"""UPDATE {User_dao.TABLE_NAME} 
                         SET {User_dao.COLUMN_NAME} = '{user.name}', 
@@ -74,8 +76,8 @@ class User_dao:
                         WHERE {User_dao.COLUMN_ID} = {user.id}""")
         dataBase.stopDataBaseConnection()
 
-    def deleteAll():
-        dataBase = DataBase()
+    def deleteAll(self):
+        dataBase = Database()
         cursor = dataBase.getDataBaseConnection()
         deleteTable = "DROP TABLE IF EXISTS " + User_dao.TABLE_NAME
         createTable = f"""CREATE TABLE IF NOT EXISTS {User_dao.TABLE_NAME} ({User_dao.COLUMN_ID} SERIAL INTEGER KEY,

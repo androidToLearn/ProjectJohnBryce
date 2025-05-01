@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>enter page</title>
+    <link rel="stylesheet" href="{{url_for('static' , filename= 'namec.css')}}">
+</head>
+
+<body>
+
+
+    <div style="position: relative; ">
+
+        <div class="mainDiv" style="position: absolute;">
+            <div class="classMyMainSHadow">
+
+                <div class="classC">
+
+                    <div class="classShadow" style="width: 100%; height: 100%; position: absolute; z-index: 2;"></div>
+                    <div
+                        style="width:fit-content; height: fit-content; margin-bottom: 20px; border: 2px solid wheat; border-radius: 30px; display: flex; flex-direction: column; justify-content: end; align-items: center;  padding-bottom: 30px; background-color: white; padding: 30px; z-index: 0; position: relative; z-index: 2;">
+                        <h1
+                            style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;  color: wheat; text-shadow: 2px 2px 5px black;">
+                            מערכת
+                            לניהול לייקים
+                        </h1>
+                        <img src="{{url_for('static' , filename = 'images/like.png')}}"
+                            style="width: 100px; height: auto; margin: 10px;">
+                        <form action="/in_like_page" , method="post">
+                            <input type="text" name="name" placeholder="name" style="width: 300px;">
+                            <input type="text" name="second_name" placeholder="second_name" style="width: 300px;">
+                            <input type="text" name="password" placeholder="password" style="width: 300px;">
+                            <input type="text" name="email" placeholder="email" style="width: 300px;">
+                            <div
+                                style="width: 100%; height: fit-content; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                                <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;">isAdmin</p>
+                                <input type="checkbox" name="is">
+                            </div>
+                            <input type="submit" value="enter" class="calssEnter">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="pas"></div>
+        </div>
+        <img src="{{url_for('static' , filename='images/likes.png' )}}"
+            style="position:absolute; width: 100vw; height: 100vh; z-index: 1;">
+    </div>
+
+    <script src="{{url_for('static' , filename='sendjson.js')}}"></script>
+</body>
+
+
+</html>

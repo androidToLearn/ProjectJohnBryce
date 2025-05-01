@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit vacation</title>
+    <link rel="stylesheet" href="{{url_for('static' , filename='cdf.css')}}">
+</head>
+
+<body>
+    <div style="display: flex;flex-direction:row; width: 100%;">
+        <div class="mainrelative">
+            <div class="padding_class">
+                <div class="my_relative">
+                    <div class="my_edits_class">
+
+                        {%if vacation == None%}
+                        <h1 style="font-size: 30px; color: black; text-shadow: 2px 2px 5px gray;">new vacation</h1>
+                        <form action="/upload_image/{{vacation_id}}" method="post" enctype="multipart/form-data" style="display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;">
+                            <input type="text" name="country" placeholder="name country...">
+                            <textarea name="description" placeholder="description vacation..."></textarea>
+                            <input type="text" name="date_start" placeholder="date start...">
+                            <input type="text" name="date_end" placeholder="date end...">
+                            <input type="text" name="price" placeholder="price...">
+                            <input type="file" name="file" accept="image/*">
+                            <input type="submit" value="add +"
+                                style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                        </form>
+                        {%else%}
+
+                        <h1 style="font-size: 30px; color: black; text-shadow: 2px 2px 5px gray;">update vacation</h1>
+
+                        <form action="/upload_image/{{vacation_id}}" method="post" enctype="multipart/form-data" style="display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;">
+                            <input type="text" name="country" placeholder="name country..." value="{{country_name}}">
+                            <textarea name="description" placeholder="description vacation..."
+                                value="{{vacation.description}}">{{vacation.description}}</textarea>
+                            <input type="text" name="date_start" placeholder="date start..."
+                                value="{{vacation.date_start}}">
+                            <input type="text" name="date_end" placeholder="date end..." value="{{vacation.date_end}}">
+                            <input type="text" name="price" placeholder="price..." value="{{vacation.price}}">
+                            <input type="file" name="file" accept="image/*">
+                            {%if vacation.image_name != ''%}
+                            {{vacation.image_name}}
+                            <img src="{{url_for('get_image' , image_name = 'vacation.image_name')}}">
+                            {%endif%}
+                            <input type="submit" value="update +"
+                                style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                        </form>
+                        <a href="/delete_country/{{vacation_id}}">
+                            <div> delete vacation </div>
+                        </a>
+                        {%endif%}
+                    </div>
+                    <div class="my_shadow"></div>
+                </div>
+            </div>
+            <div class="ab_img">
+                <img src="{{url_for('static' , filename = 'images/likes_edit.png')}}">
+            </div>
+        </div>
+    </div>
+    <script src="{{url_for('static' , filename='cde.js')}}"></script>
+</body>
+
+</html>

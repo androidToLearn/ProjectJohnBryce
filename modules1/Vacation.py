@@ -8,3 +8,6 @@ class Vacation:
         self.date_end = date_end
         self.price = price
         self.image_name = image_name
+
+    def __str__(self):
+        return f"""{self.image_name}"""

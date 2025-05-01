@@ -1,0 +1,113 @@
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+.my_edits_class {
+    width: fit-content;
+    height: fit-content;
+    background-color: aqua;
+    border: 2px solid blue;
+    border-radius: 30px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+
+
+
+
+.my_edits_class form input[type='text'] {
+    border: 2px solid blue;
+    border-radius: 30px;
+    width: 300px;
+    height: fit-content;
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.my_edits_class form input[type='submit'] {
+    border: 2px solid black;
+    background-color: green;
+    width: 200px;
+    height: fit-content;
+    font-size: 30px;
+    border-radius: 30px;
+    margin: 10px;
+}
+
+.my_edits_class form input[type='submit']:hover {
+    border: 2px solid black;
+    background-color: yellowgreen;
+}
+
+.my_edits_class form textarea {
+    border: 2px solid blue;
+    border-radius: 30px;
+    width: 300px;
+    height: fit-content;
+    font-size: 18px;
+    margin: 5px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.my_edits_class form input[type='text']:hover {
+    border: 2px solid rgb(197, 187, 187);
+}
+
+.my_edits_class form textarea:hover {
+    border: 2px solid rgb(197, 187, 187);
+}
+
+
+
+
+.add_black_boarder {
+    border: 2px solid black;
+}
+
+.my_relative {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.padding_class {
+    width: fit-content;
+    height: fit-content;
+    padding-top: 1vh;
+    padding-left: 10vw;
+    position: absolute;
+}
+
+.mainrelative {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: linear-gradient(to left, black, gray);
+}
+
+.ab_img {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    left: 23vw;
+}
+
+.my_shadow {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top left, gray, rgba(128, 128, 128, 0.292));
+    top: 8px;
+    left: 8px;
+    position: absolute;
+    border-radius: 30px;
+    z-index: 1;
+}
