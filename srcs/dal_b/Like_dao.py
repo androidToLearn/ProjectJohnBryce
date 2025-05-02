@@ -46,6 +46,19 @@ class Like_dao:
             allLikes.append(Like(result[0], result[1]))
         return allLikes
 
+    def getAllByIdVacation(self, id):
+        dataBase = Database()
+        cursor = dataBase.getDataBaseConnection()
+        cursor.execute("SELECT * FROM " + Like_dao.TABLE_NAME +
+                       " where " + Like_dao.COLUMN_ID_VACATION + ' = ' + str(id))
+        results = cursor.fetchall()
+        dataBase.stopDataBaseConnection()
+
+        allLikes = []
+        for result in results:
+            allLikes.append(Like(result[0], result[1]))
+        return allLikes
+
     def deleteAll(self):
         dataBase = Database()
         cursor = dataBase.getDataBaseConnection()

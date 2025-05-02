@@ -61,6 +61,18 @@ class Vacation_dao:
 
     #    def __init__(self, id: int, id_country: int, description: str, date_start: str, date_end: str, price: int, image_name: str):
 
+    def getVacationById(self, id):
+        dataBase = Database()
+        cursor = dataBase.getDataBaseConnection()
+        cursor.execute("SELECT * FROM " + Vacation_dao.TABLE_NAME +
+                       " WHERE " + Vacation_dao.COLUMN_ID + " = " + id)
+        result = cursor.fetchone()
+        dataBase.stopDataBaseConnection()
+
+        if result == None:
+            return None
+        return Vacation(result[0], result[1], result[2], result[3], result[4], result[5], result[6])
+
     def updateVacationById(self, vacation):
         dataBase = Database()
         cursor = dataBase.getDataBaseConnection()

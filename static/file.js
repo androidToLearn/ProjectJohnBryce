@@ -122,6 +122,24 @@ function doDefaultValues() {
         });
 }
 
+let allTextNumLikes = document.getElementsByClassName('numlikesText');
+let allCheckBoxes = document.getElementsByClassName('cheack123');
+console.log(allTextNumLikes.length + "");
+console.log(allCheckBoxes.length + "");
+function doGoodClickOnCheckBoxes() {
+    for (let i = 0; i < allCheckBoxes.length; i++) {
+        allCheckBoxes[i].addEventListener('click', () => {
+            console.log('click checkbox');
+            if (allCheckBoxes[i].checked) {
+                allTextNumLikes[i].innerText = parseInt(allTextNumLikes[i].innerText) + 1 + "";
+            }
+            else {
+                allTextNumLikes[i].innerText = parseInt(allTextNumLikes[i].innerText) - 1;
+            }
+        });
+    }
+}
+
 function doGoodClickOnCheacks() {
     for (let i = 0; i < realCheck.length; i++) {
         realCheck[i].addEventListener('click', () => {
@@ -137,6 +155,7 @@ doDefaultValues();
 clickSomeSearchButton(0);
 doClickOnButtons();
 doGoodClickOnCheacks();
+doGoodClickOnCheckBoxes();
 bt.style.display = 'none';
 
 

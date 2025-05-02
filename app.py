@@ -204,7 +204,7 @@ def in_like_page():
     with open(os.path.join(os.getcwd(), 'data', 'file2.json'), 'r') as file:
         searchJson = json.load(file)
     for vacation in Vacation_service1.getAllVacations():
-        vacationAll.append({'id': vacation.id, 'country': findCountryName(
+        vacationAll.append({'id': vacation.id, 'num_likes': getNumLikeByIdVacation(vacation.id), 'country': findCountryName(
             vacation.id_country), 'description': vacation.description, 'date_start': vacation.date_start, 'date_end': vacation.date_end, 'price': vacation.price, 'image_name': vacation.image_name})
         my_is_like.append(isHasLike(message.id, vacation.id))
 
@@ -214,6 +214,11 @@ def in_like_page():
         vacationAll, my_is_like, searchJson)
 
     return render_template('page2.html', vacations=bVacations, myIsLikes=b_my_is_like, my_user=message)
+
+
+def getNumLikeByIdVacation(id):
+    like_dao = Like_dao()
+    return len(like_dao.getAllByIdVacation(id))
 
 
 def accordingSearchJson(vacations, my_is_like, searchJson):

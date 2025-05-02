@@ -82,6 +82,10 @@
         </p>
         <p
             style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
+            likes
+        </p>
+        <p
+            style="flex-grow: 1; border: 2px solid black; font-size: 24px; background-color: aquamarine; height: 100px; margin: 0; line-height: 100px; text-align: left;box-sizing: border-box;padding: 8px;">
             nameCountry
         </p>
         <p
@@ -113,14 +117,15 @@
         {%if myIsLikes[loop.index0]%}
         <div style="flex-grow: 1;display: flex;justify-content: center;align-items: center;height: fit-content;">
             <input type="checkbox" style="padding: 5px;width: 100px;height: 100px;;"
-                onclick="clickDone({{vacation['id']}} , {{my_user.id}} , this)" checked>
+                onclick="clickDone({{vacation['id']}} , {{my_user.id}} , this)" class="cheack123" checked>
         </div>
         {%else%}
         <div style="flex-grow: 1;display: flex;justify-content: center;align-items: center;height: fit-content;">
             <input type="checkbox" style="padding: 5px;width: 100px;height: 100px;"
-                onclick="clickDone({{vacation['id']}} , {{my_user.id}} , this)">
+                onclick="clickDone({{vacation['id']}} , {{my_user.id}} , this)" class="cheack123">
         </div>
         {%endif%}
+        <p style="flex-grow: 1;padding: 5px;" class="numlikesText">{{vacation['num_likes']}}</p>
         <p style="flex-grow: 1;padding: 5px;">{{vacation['country']}}</p>
         <p style="flex-grow: 1;padding: 5px;">{{vacation['description']}}</p>
         <p style="flex-grow: 1;padding: 5px;">{{vacation['date_start']}}</p>
