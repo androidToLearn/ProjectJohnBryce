@@ -1,3 +1,4 @@
+import uuid
 from flask import Flask, redirect, url_for, render_template, request, jsonify, send_from_directory, Response
 from services import Vacation_service1
 from services import User_service
@@ -175,7 +176,8 @@ def in_like_page():
             data_dir = os.path.join(os.getcwd(), 'data')
             if not os.path.exists(data_dir):
                 os.makedirs(data_dir)
-            file_path = os.path.join(data_dir, 'user.json')
+            file_path = os.path.join(
+                data_dir, 'user' + str(get_mac_address()) + '.json')
             with open(file_path, 'w') as file:
                 json.dump(asJson, file, indent=4)
         else:
@@ -184,7 +186,8 @@ def in_like_page():
             data_dir = os.path.join(os.getcwd(), 'data')
             if not os.path.exists(data_dir):
                 os.makedirs(data_dir)
-            file_path = os.path.join(data_dir, 'user.json')
+            file_path = os.path.join(
+                data_dir, 'user' + str(get_mac_address()) + '.json')
             with open(file_path, 'w') as file:
                 json.dump(asJson, file, indent=4)
     # WHEN simple updating page(not entering like back from add vacation)
@@ -193,7 +196,8 @@ def in_like_page():
         data_dir = os.path.join(os.getcwd(), 'data')
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)
-        file_path = os.path.join(data_dir, 'user.json')
+        file_path = os.path.join(
+            data_dir, 'user' + str(get_mac_address()) + '.json')
         with open(file_path, 'r') as file:
             myJson = json.load(file)['m']
 
@@ -201,7 +205,7 @@ def in_like_page():
                            myJson[3], myJson[4], myJson[5])
     vacationAll = []
     my_is_like = []
-    with open(os.path.join(os.getcwd(), 'data', 'file2.json'), 'r') as file:
+    with open(os.path.join(os.getcwd(), 'data', 'file2' + str(get_mac_address()) + '.json'), 'r') as file:
         searchJson = json.load(file)
     for vacation in Vacation_service1.getAllVacations():
         vacationAll.append({'id': vacation.id, 'num_likes': getNumLikeByIdVacation(vacation.id), 'country': findCountryName(
@@ -214,6 +218,11 @@ def in_like_page():
         vacationAll, my_is_like, searchJson)
 
     return render_template('page2.html', vacations=bVacations, myIsLikes=b_my_is_like, my_user=message)
+
+
+def get_mac_address():
+    mac = uuid.getnode()
+    return mac
 
 
 def getNumLikeByIdVacation(id):
@@ -319,7 +328,7 @@ def send_search_json():
     print("Directory exists:", os.path.exists(dir_path))
 
     os.makedirs(os.path.join(os.getcwd(), 'data'), exist_ok=True)
-    with open(os.path.join(os.getcwd(), 'data', 'file2.json'), 'w') as file:
+    with open(os.path.join(os.getcwd(), 'data', 'file2' + str(get_mac_address()) + '.json'), 'w') as file:
         json.dump(myjson, file, indent=4)
 
     return jsonify({'message': 'good'})
@@ -327,7 +336,7 @@ def send_search_json():
 
 @app.route('/get_search_json')
 def get_json():
-    with open(os.path.join(os.getcwd(), 'data', 'file2.json'), 'r') as file:
+    with open(os.path.join(os.getcwd(), 'data', 'file2' + str(get_mac_address()) + '.json'), 'r') as file:
         searchJson = json.load(file)
     return searchJson
 
