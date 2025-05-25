@@ -217,8 +217,11 @@ def in_like_page():
 
     bVacations = []
     b_my_is_like = []
-    (bVacations, b_my_is_like) = accordingSearchJson(
-        vacationAll, my_is_like, searchJson)
+    try:
+        (bVacations, b_my_is_like) = accordingSearchJson(
+            vacationAll, my_is_like, searchJson)
+    except Exception as e:
+        return jsonify({'message': 'bad arguments'})
 
     return render_template('page2.html', vacations=bVacations, myIsLikes=b_my_is_like, my_user=message)
 
@@ -237,23 +240,43 @@ def getNumLikeByIdVacation(id):
 def accordingSearchJson(vacations, my_is_like, searchJson):
     new_vac = []
     newMyIsLike = []
-    i = 0
-    print('start for')
 
+    i = 0
     for v in vacations:
-        if ((searchJson['id'] == '-1' or searchJson['id'] == v['id']) and
-            (searchJson['country'] == '-1' or str(searchJson['country']).lower() == str(
-                v['country']).lower()) and
-            (searchJson['description'] == '-1' or str(searchJson['description']).lower() in str(v['description']).lower()) and
-            (searchJson['price'] == '-1' or int(searchJson['price']) >= v['price']) and
-           ((searchJson['ischeaked'] ==
-                '-1' or searchJson['ischeaked'] == str(3)) or (my_is_like[i] and searchJson['ischeaked'] == str(1)) or (not my_is_like[i] and searchJson['ischeaked'] == str(2)))
-                and (searchJson['month_start'] == '-1' or isInSameMonth(searchJson['month_start'], v['date_start']))
-                and (searchJson['year_start'] == '-1' or isInSameYear(searchJson['year_start'], v['date_start']))
-                and searchJson['days_vacation'] == '-1' or isSameTimeVacation(searchJson['days_vacation'], v['date_start'], v['date_end'])):
-            new_vac.append(v)
-            newMyIsLike.append(my_is_like[i])
-        i += 1
+        print('--------------------')
+        print('start', v['date_start'])
+        print('end', v['date_end'])
+        try:
+            if ((searchJson['id'] == '-1' or searchJson['id'] == v['id']) and
+                (searchJson['country'] == '-1' or str(searchJson['country']).lower() == str(
+                    v['country']).lower()) and
+                (searchJson['description'] == '-1' or str(searchJson['description']).lower() in str(v['description']).lower()) and
+                (searchJson['price'] == '-1' or int(searchJson['price']) >= v['price']) and
+                ((searchJson['ischeaked'] ==
+                    '-1' or searchJson['ischeaked'] == str(3)) or (my_is_like[i] and searchJson['ischeaked'] == str(1)) or (not my_is_like[i] and searchJson['ischeaked'] == str(2)))
+                    and (searchJson['month_start'] == '-1' or isInSameMonth(searchJson['month_start'], v['date_start']))
+                    and (searchJson['year_start'] == '-1' or isInSameYear(searchJson['year_start'], v['date_start']))
+                    and searchJson['days_vacation'] == '-1' or isSameTimeVacation(searchJson['days_vacation'], v['date_start'], v['date_end'])):
+
+                new_vac.append(v)
+                newMyIsLike.append(my_is_like[i])
+            i += 1
+        except Exception as e:
+            if ((searchJson['id'] == '-1' or searchJson['id'] == v['id']) and
+                (searchJson['country'] == '-1' or str(searchJson['country']).lower() == str(
+                    v['country']).lower()) and
+                (searchJson['description'] == '-1' or str(searchJson['description']).lower() in str(v['description']).lower()) and
+                (searchJson['price'] == '-1' or int(searchJson['price']) >= v['price']) and
+                ((searchJson['ischeaked'] ==
+                    '-1' or searchJson['ischeaked'] == str(3)) or (my_is_like[i] and searchJson['ischeaked'] == str(1)) or (not my_is_like[i] and searchJson['ischeaked'] == str(2)))
+                    and (searchJson['month_start'] == '-1' or isInSameMonth(searchJson['month_start'], v['date_start'][::-1]))
+                    and (searchJson['year_start'] == '-1' or isInSameYear(searchJson['year_start'], v['date_start'][::-1]))
+                    and searchJson['days_vacation'] == '-1' or isSameTimeVacation(searchJson['days_vacation'], v['date_start'][::-1], v['date_end'][::-1])):
+
+                new_vac.append(v)
+                newMyIsLike.append(my_is_like[i])
+            i += 1
+
     return (new_vac, newMyIsLike)
 
 
