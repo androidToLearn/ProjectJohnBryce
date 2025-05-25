@@ -77,8 +77,11 @@ def upload_image(vacation_id):
             print('error inside inserting')
             # try:
             # למקרה שהתאריך כולו הפוך
-            Vacation_service2.insertVacations(
-                idCountry, description, date_start[::-1], date_end[::-1], price, filename, True)
+            try:
+                Vacation_service2.insertVacations(
+                    idCountry, description, date_start[::-1], date_end[::-1], price, filename, True)
+            except Exception as e:
+                return jsonify({'error': str(e)})
             # except Exception as e:
             #   return jsonify({'message:': str(e)})
     else:
@@ -221,6 +224,7 @@ def in_like_page():
 
 
 def get_mac_address():
+    """return unique id for every computer"""
     mac = uuid.getnode()
     return mac
 

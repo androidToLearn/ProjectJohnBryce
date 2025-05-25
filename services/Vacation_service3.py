@@ -20,10 +20,10 @@ def updateVacations(vacation_id, id_country, description, date_start, date_end, 
 
     if len(str(id_country)) > 0 and len(description) > 0 and len(date_start) > 0 and len(date_end) > 0 and len(str(price)) > 0:
         if price < 0 or price > 10000:
-            raise Exception("bad price")
+            return "bad price"
         else:
             if isBigger(date_start, date_end, isInOther) or (len(date_start) != 10 or len(date_end) != 10):
-                raise Exception("bad date!")
+                return "bad date!"
             else:
                 if isInOther:
                     v = Vacation(vacation_id, id_country, description,
@@ -34,7 +34,7 @@ def updateVacations(vacation_id, id_country, description, date_start, date_end, 
                 vacation_dao = Vacation_dao()
                 vacation_dao.updateVacationById(v)
     else:
-        raise Exception("fill all fields")
+        return "fill all fields"
 
 
 def isBigger(date_start, date_end, isInOther):
