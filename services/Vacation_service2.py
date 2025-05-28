@@ -28,15 +28,18 @@ def insertVacations(id_country, description, date_start, date_end, price, filena
                 raise Exception("bad date!")
             else:
                 now = datetime.now().strftime("%d/%m/%Y")
-                if isBigger(now, date_start, isInOther) or isBigger(now, date_end, isInOther):
+
+                if isBigger(now, date_start, isInOther, True) or isBigger(now, date_end, isInOther, True):
                     raise Exception("bad start date")
                 vacation_dao = Vacation_dao()
                 if isInOther:
                     vacation_dao.insertVacation(
                         Vacation(-1, id_country, description, date_start[::-1], date_end[::-1], int(price), filename))
+                    print('date end', date_end[::-1])
                 else:
                     vacation_dao.insertVacation(
                         Vacation(-1, id_country, description, date_start, date_end, int(price), filename))
+                    print('date end', date_end)
 
     else:
         raise Exception("fill all fields")
@@ -79,12 +82,17 @@ def addZeros(date, isRevers):
     return date
 
 
-def isBigger(date_start, date_end, isInOther):
+def isBigger(date_start, date_end, isInOther, isDate=False):
     if isInOther:
         try:
-            day = int(date_start[0:2][::-1])
-            month = int(date_start[3:5][::-1])
-            year = int(date_start[6:10][::-1])
+            if not isDate:
+                day = int(date_start[0:2][::-1])
+                month = int(date_start[3:5][::-1])
+                year = int(date_start[6:10][::-1])
+            else:
+                day = int(date_start[0:2])
+                month = int(date_start[3:5])
+                year = int(date_start[6:10])
 
             day2 = int(date_end[0:2][::-1])
             month2 = int(date_end[3:5][::-1])

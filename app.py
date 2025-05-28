@@ -255,7 +255,7 @@ def accordingSearchJson(vacations, my_is_like, searchJson):
                 ((searchJson['ischeaked'] ==
                     '-1' or searchJson['ischeaked'] == str(3)) or (my_is_like[i] and searchJson['ischeaked'] == str(1)) or (not my_is_like[i] and searchJson['ischeaked'] == str(2)))
                     and (searchJson['month_start'] == '-1' or isInSameMonth(searchJson['month_start'], v['date_start']))
-                    and (searchJson['year_start'] == '-1' or isInSameYear(searchJson['year_start'], v['date_start']))
+                    and (searchJson['year_start'] == '-1' or isSameYear(searchJson['year_start'], v['date_start']))
                     and searchJson['days_vacation'] == '-1' or isSameTimeVacation(searchJson['days_vacation'], v['date_start'], v['date_end'])):
 
                 new_vac.append(v)
@@ -269,9 +269,9 @@ def accordingSearchJson(vacations, my_is_like, searchJson):
                 (searchJson['price'] == '-1' or int(searchJson['price']) >= v['price']) and
                 ((searchJson['ischeaked'] ==
                     '-1' or searchJson['ischeaked'] == str(3)) or (my_is_like[i] and searchJson['ischeaked'] == str(1)) or (not my_is_like[i] and searchJson['ischeaked'] == str(2)))
-                    and (searchJson['month_start'] == '-1' or isInSameMonth(searchJson['month_start'], v['date_start'][::-1]))
-                    and (searchJson['year_start'] == '-1' or isInSameYear(searchJson['year_start'], v['date_start'][::-1]))
-                    and searchJson['days_vacation'] == '-1' or isSameTimeVacation(searchJson['days_vacation'], v['date_start'][::-1], v['date_end'][::-1])):
+                    and (searchJson['month_start'] == '-1' or isInSameMonthReverse(searchJson['month_start'], v['date_start'][::-1]))
+                    and (searchJson['year_start'] == '-1' or isInSameYearReverse(searchJson['year_start'], v['date_start'][::-1]))
+                    and searchJson['days_vacation'] == '-1' or isSameTimeVacationReverse(searchJson['days_vacation'], v['date_start'][::-1], v['date_end'][::-1])):
 
                 new_vac.append(v)
                 newMyIsLike.append(my_is_like[i])
@@ -280,24 +280,50 @@ def accordingSearchJson(vacations, my_is_like, searchJson):
     return (new_vac, newMyIsLike)
 
 
-def isInSameMonth(month_start_in_json, date_start):
-    m = int(date_start[::-1][3:5][::-1])
+def isInSameMonthReverse(month_start_in_json, date_start):
+    m = int(date_start[3:5][::-1])
     return int(month_start_in_json) == m
 
 
-def isInSameYear(year_start_in_json, date_start):
-    y = int(date_start[::-1][6:10][::-1])
+def isInSameYearReverse(year_start_in_json, date_start):
+    y = int(date_start[6:10][::-1])
     return int(year_start_in_json) == y
 
 
-def isSameTimeVacation(stringDays, date_start, date_end):
-    s_day = int(date_start[::-1][0:2][::-1])
-    s_month = int(date_start[::-1][3:5][::-1])
-    s_year = int(date_start[::-1][6:10][::-1])
+def isSameYear(year_start_in_json, date_start):
+    y = int(date_start[6:10])
+    return int(year_start_in_json) == y
 
-    day = int(date_end[::-1][0:2][::-1])
-    month = int(date_end[::-1][3:5][::-1])
-    year = int(date_end[::-1][6:10][::-1])
+
+def isInSameMonth(month_start_in_json, date_start):
+    m = int(date_start[3:5])
+    return int(month_start_in_json) == m
+
+
+def isSameTimeVacation(stringDays, date_start, date_end):
+    s_day = int(date_start[0:2])
+    s_month = int(date_start[3:5])
+    s_year = int(date_start[6:10])
+
+    day = int(date_end[0:2])
+    month = int(date_end[3:5])
+    year = int(date_end[6:10])
+
+    numDays = 0
+    numDays += (year - s_year) * 365
+    numDays += (month - s_month) * 30
+    numDays += day - s_day + 1  # pluse 1 - if same day is one day.
+    return numDays == int(stringDays)
+
+
+def isSameTimeVacationReverse(stringDays, date_start, date_end):
+    s_day = int(date_start[0:2][::-1])
+    s_month = int(date_start[3:5][::-1])
+    s_year = int(date_start[6:10][::-1])
+
+    day = int(date_end[0:2][::-1])
+    month = int(date_end[3:5][::-1])
+    year = int(date_end[6:10][::-1])
 
     numDays = 0
     numDays += (year - s_year) * 365
